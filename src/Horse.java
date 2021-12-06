@@ -10,18 +10,17 @@ public class Horse extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        boolean check;
-        if (toLine > 7 || toLine < 0 || toColumn > 7 || toColumn < 0) check = false;
-        else if (line == toLine && column == toColumn) check = false;
-        else if (
-                        (line + 2 == toLine && (column + 1 == toColumn || column - 1 == toColumn)) ||
-                        (line - 2 == toLine && (column + 1 == toColumn || column - 1 == toColumn)) ||
-                        ((line + 1 == toLine || line - 1 == toLine) && column + 2 == toColumn) ||
-                        ((line + 1 == toLine || line - 1 == toLine) && column - 2 == toColumn)
-        ) check = true;
-        else check = false;
-        System.out.println("check " + check + " " + line + column + " " + toLine + toColumn);
-        return check;
+        boolean checkPosition = false;
+        if (checkBoardLimits(toLine, toColumn) && moveToSamePosition(line, column, toLine, toColumn)) {
+            if (
+                    (line + 2 == toLine && (column + 1 == toColumn || column - 1 == toColumn)) ||
+                            (line - 2 == toLine && (column + 1 == toColumn || column - 1 == toColumn)) ||
+                            ((line + 1 == toLine || line - 1 == toLine) && column + 2 == toColumn) ||
+                            ((line + 1 == toLine || line - 1 == toLine) && column - 2 == toColumn)
+            ) checkPosition= true;
+        } else checkPosition= false;
+        System.out.println("checkPosition" + checkPosition+ " " + line + "/" + column + " " + toLine + "/" + toColumn);
+        return checkPosition;
     }
 
     @Override
